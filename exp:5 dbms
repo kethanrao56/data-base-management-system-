@@ -1,0 +1,342 @@
+mysql> use faculty1;
+Database changed
+mysql> desc faculty;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| facultyno   | int(10)     | YES  |     | NULL    |       |
+| facultyname | varchar(10) | YES  |     | NULL    |       |
+| mobileno    | int(10)     | YES  |     | NULL    |       |
+| deptname    | varchar(10) | YES  |     | NULL    |       |
+| gender      | varchar(10) | YES  |     | NULL    |       |
+| age         | int(10)     | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.04 sec)
+
+mysql> select *from faculty;
++-----------+-------------+----------+----------+--------+------+------------+
+| facultyno | facultyname | mobileno | deptname | gender | age  | dob        |
++-----------+-------------+----------+----------+--------+------+------------+
+|         1 | ravi        | 98765432 | cse      | female |   30 | 2002-12-23 |
+|         2 | mani        | 98765456 | eee      | male   |   45 | 2003-11-21 |
++-----------+-------------+----------+----------+--------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> use student1;
+Database changed
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| regno  | int(11)     | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| gender | varchar(2)  | YES  |     | NULL    |       |
+| dob    | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> select *from student;
++-----------+-------+--------+------------+
+| regno     | name  | gender | dob        |
++-----------+-------+--------+------------+
+| 192211495 | bhanu | M      | 2004-08-26 |
+| 191912206 | arun  | M      | 2000-04-23 |
++-----------+-------+--------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select regno,name, dob from student;
++-----------+-------+------------+
+| regno     | name  | dob        |
++-----------+-------+------------+
+| 192211495 | bhanu | 2004-08-26 |
+| 191912206 | arun  | 2000-04-23 |
++-----------+-------+------------+
+2 rows in set (0.00 sec)
+
+mysql> create database registration;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> use registration;
+Database changed
+mysql> create table registration(studentname varchar(10),coursename varchar(10),coursecode(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(10))' at line 1
+mysql> create table registration(studentname varchar(10),coursename varchar(10),coursecode int(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> desc registration;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| studentname | varchar(10) | YES  |     | NULL    |       |
+| coursename  | varchar(10) | YES  |     | NULL    |       |
+| coursecode  | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert intoo registration values('ravi','python','csa0897');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'registration values('ravi','python','csa0897')' at line 1
+mysql> insert into registration values('ravi','python','csa0897');
+ERROR 1366 (HY000): Incorrect integer value: 'csa0897' for column 'coursecode' at row 1
+mysql> insert into registration values('ravi','python','0897');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into registration values('ramu','java','0237');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into registration values('bhanu','dbms','4567');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select *from registration;
++-------------+------------+------------+
+| studentname | coursename | coursecode |
++-------------+------------+------------+
+| ravi        | python     |        897 |
+| ramu        | java       |        237 |
+| bhanu       | dbms       |       4567 |
++-------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select studentname from registration where cousecode ='897';
+ERROR 1054 (42S22): Unknown column 'cousecode' in 'where clause'
+mysql> select studentname from registration where coursecode ='897';
++-------------+
+| studentname |
++-------------+
+| ravi        |
++-------------+
+1 row in set (0.04 sec)
+
+mysql> use faculty;;
+Database changed
+ERROR:
+No query specified
+
+mysql> desc faculty;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| facultyno   | int(11)     | NO   | PRI | 0       |       |
+| facultyname | varchar(10) | YES  |     | NULL    |       |
+| mobileno    | int(10)     | YES  |     | NULL    |       |
+| dateofjoin  | int(10)     | YES  |     | NULL    |       |
+| deptno      | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+5 rows in set (0.05 sec)
+
+mysql> use faculty1;
+Database changed
+mysql> desc faculty;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| facultyno   | int(10)     | YES  |     | NULL    |       |
+| facultyname | varchar(10) | YES  |     | NULL    |       |
+| mobileno    | int(10)     | YES  |     | NULL    |       |
+| deptname    | varchar(10) | YES  |     | NULL    |       |
+| gender      | varchar(10) | YES  |     | NULL    |       |
+| age         | int(10)     | YES  |     | NULL    |       |
+| dob         | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+7 rows in set (0.05 sec)
+
+mysql> insert into faculty values(1,'ramu',9876543,'eee','M',32,19910921);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into faculty values(2,'anu',954323456,'ece','F',29,19950211);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into faculty values(3,'ammu',96253464,'cse','F',19,20040511);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from faculty;
++-----------+-------------+-----------+----------+--------+------+------------+
+| facultyno | facultyname | mobileno  | deptname | gender | age  | dob        |
++-----------+-------------+-----------+----------+--------+------+------------+
+|         1 | ravi        |  98765432 | cse      | female |   30 | 2002-12-23 |
+|         2 | mani        |  98765456 | eee      | male   |   45 | 2003-11-21 |
+|         1 | ramu        |   9876543 | eee      | M      |   32 | 1991-09-21 |
+|         2 | anu         | 954323456 | ece      | F      |   29 | 1995-02-11 |
+|         3 | ammu        |  96253464 | cse      | F      |   19 | 2004-05-11 |
++-----------+-------------+-----------+----------+--------+------+------------+
+
+
+mysql> use db_department;
+Database changed
+mysql> desc course;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| course_no   | int(10)     | YES  |     | NULL    |       |
+| course_dept | varchar(10) | YES  |     | NULL    |       |
+| sem_no      | int(10)     | YES  |     | NULL    |       |
+| hall_no     | int(10)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.09 sec)
+mysql> SELECT * FROM COURSE;
++-----------+-------------+--------+---------+
+| course_no | course_dept | sem_no | hall_no |
++-----------+-------------+--------+---------+
+|         1 | EEE         |      1 |       1 |
+|         2 | ECE         |      1 |       2 |
+|         3 | IT          |      1 |       3 |
+|         4 | MECH        |      1 |       4 |
+|         1 | CSE         |      1 |       0 |
+|         6 | IT          |      1 |       0 |
+|         7 | AIML        |      1 |       0 |
++-----------+-------------+--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT COURSE_DEPT FROM COURSE WHERE HALL_NO = 0;
++-------------+
+| COURSE_DEPT |
++-------------+
+| CSE         |
+| IT          |
+| AIML        |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> DESC STUDENT;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| reg_no | int(11)     | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
+| DOB    | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+mysql> SELECT * FROM STUDENT;
++-----------+-----------+--------+------------+
+| reg_no    | name      | gender | DOB        |
++-----------+-----------+--------+------------+
+| 192211495 |  bhanu    | M      | 2004-08-26 |
+| 192211460 | amulya    | F      | 2004-01-11 |
+| 192211462 | mahesh    | M      | 2005-03-10 |
+| 192211329 | anupama   | F      | 2004-09-10 |
+| 192211206 | rashmikaa | F      | 2001-11-22 |
+| 192233443 | rekha     | F      | 2005-12-26 |
++-----------+-----------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select name from student where name like '%a';
++-----------+
+| name      |
++-----------+
+| amulya    |
+| anupama   |
+| rashmikaa |
+| rekha     |
++-----------+
+4 rows in set (0.00 sec)
+
+
+8)
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| reg_no   | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| location | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+
+mysql> select * from student;
++-----------+-----------+--------+------------+------------+
+| reg_no    | name      | gender | DOB        | location   |
++-----------+-----------+--------+------------+------------+
+| 192211495 |  bhanu    | M      | 2004-08-26 | ongole     |
+| 192211460 | amulya    | F      | 2004-01-11 | ongole     |
+| 192211462 | mahesh    | M      | 2004-03-10 | ongole     |
+| 192211329 | anupama   | F      | 2004-09-10 | mumbai     |
+| 192211206 | rashmikaa | F      | 2001-11-22 | delhi      |
+| 192233443 | rekha     | F      | 2005-12-26 | chennai    |
++-----------+-----------+--------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select name from student where location like '%ong%';
++-----------+
+| name      |
++-----------+
+| bhanu     |
+| amulya    |
+| mahesh    |
++-----------+
+4 rows in set (0.00 sec)
+
+9)
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| reg_no   | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| location | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)1
+
+mysql> select * from student;
++-----------+-----------+--------+------------+------------+
+| reg_no    | name      | gender | DOB        | location   |
++-----------+-----------+--------+------------+------------+
+| 192211495 |  bhanu    | M      | 2004-08-26 | ongole     |
+| 192211460 | amulya    | F      | 2004-01-11 | ongole     |
+| 192211462 | mahesh    | M      | 2004-03-10 | ongole     |
+| 192211329 | anupama   | F      | 2004-09-10 | mumbai     |
+| 192211206 | rashmikaa | F      | 2001-11-22 | delhi      |
+| 192233443 | rekha     | F      | 2005-12-26 | chennai    |
++-----------+-----------+--------+------------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select name from student where length(name)<>6;
++-----------+
+| name      |
++-----------+
+| bhanu     |
+| rekha     |
++-----------+
+2 rows in set (0.00 sec)
+
+10)
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| reg_no   | int(11)     | YES  |     | NULL    |       |
+| name     | varchar(10) | YES  |     | NULL    |       |
+| gender   | varchar(1)  | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| location | varchar(15) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.06 sec)
+mysql> select * from student;
++-----------+-----------+--------+------------+------------+
+| reg_no    | name      | gender | DOB        | location   |
++-----------+-----------+--------+------------+------------+
+| 192211495 |  bhanu    | M      | 2004-08-26 | ongole     |
+| 192211460 | amulya    | F      | 2004-01-11 | ongole     |
+| 192211462 | mahesh    | M      | 2004-03-10 | ongole     |
+| 192211329 | anupama   | F      | 2004-09-10 | mumbai     |
+| 192211206 | rashmikaa | F      | 2001-11-22 | delhi      |
+| 192233443 | rekha     | F      | 2005-12-26 | chennai    |
++-----------+-----------+--------+------------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> select name from student where name like '%anu%';
++---------+
+| name    |
++---------+
+| bhanu   |
+| anupama |
++---------+
+2 rows in set (0.00 sec)
+
