@@ -1,0 +1,201 @@
+1 mysql> desc course1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| studid     | int(10)     | YES  |     | NULL    |       |
+| courseno   | int(10)     | YES  |     | NULL    |       |
+| coursename | varchar(10) | YES  |     | NULL    |       |
+| marks      | int(10)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.05 sec)
+
+mysql> select*from course1;
++--------+----------+------------+-------+
+| studid | courseno | coursename | marks |
++--------+----------+------------+-------+
+|      1 |     4795 | maths      |    65 |
+|      2 |     4065 | c          |    75 |
+|      3 |     4565 | java       |    55 |
+|      2 |     4532 | physics    |    95 |
+|      1 |     4532 | physics    |    79 |
+|      1 |     4065 | c          |    89 |
++--------+----------+------------+-------+
+6 rows in set (0.00 sec)
+
+
+mysql> select studid,marks from course1 where marks in(select marks from course1 where marks>=50);
++--------+-------+
+| studid | marks |
++--------+-------+
+|      1 |    65 |
+|      2 |    75 |
+|      3 |    55 |
+|      2 |    95 |
+|      1 |    79 |
+|      1 |    89 |
++--------+-------+
+6 rows in set (0.00 sec)
+
+2 mysql> alter table course1
+    -> add(assignment int(10));
+Query OK, 6 rows affected (0.08 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> desc course1;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| studid     | int(10)     | YES  |     | NULL    |       |
+| courseno   | int(10)     | YES  |     | NULL    |       |
+| coursename | varchar(10) | YES  |     | NULL    |       |
+| marks      | int(10)     | YES  |     | NULL    |       |
+| assignment | int(10)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.02 sec)
+
+mysql> insert into course1 values(1,4795,'maths',65,2);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into course1 values(2,4065,'c',75,4);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course1 values(3,4565,'java',55,6);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course1 values(2,4532,'physics',95,3);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course1 values(1,4532,'physics',79,1);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into course1 values(1,4065,'c',89,5);
+Query OK, 1 row affected (0.03 sec)
+
++--------+----------+------------+-------+------------+
+| studid | courseno | coursename | marks | assignment |
++--------+----------+------------+-------+------------+
+|      1 |     4795 | maths      |    65 |          2 |
+|      2 |     4065 | c          |    75 |          4 |
+|      3 |     4565 | java       |    55 |          6 |
+|      2 |     4532 | physics    |    95 |          3 |
+|      1 |     4532 | physics    |    79 |          1 |
+|      1 |     4065 | c          |    89 |          5 |
++--------+----------+------------+-------+------------+
+12 rows in set (0.02 sec)
+
+mysql> select studid,assignment from course1 where assignment>1;
++--------+------------+
+| studid | assignment |
++--------+------------+
+|      1 |          2 |
+|      2 |          4 |
+|      3 |          6 |
+|      2 |          3 |
+|      1 |          5 |
++--------+------------+
+5 rows in set (0.00 sec)
+
+
+
+
+3 mysql> use student1;
+Database changed
+mysql> desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| regno  | int(11)     | YES  |     | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| gender | varchar(2)  | YES  |     | NULL    |       |
+| dob    | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+
+mysql> insert into student values(192211495,'Bhanu','M',20040826);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(192211640,'Mani','M',20040321);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into student values(192211642,'Tharun','M',20040422);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student values(192211222,'anu','F',20040619);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from student;
++-----------+--------+--------+------------+
+| regno     | name   | gender | dob        |
++-----------+--------+--------+------------+
+| 192211495 | bhanu  | M      | 2004-08-26 |
+| 191912206 | arun   | M      | 2000-04-23 |
+| 192211495 | Bhanu  | M      | 2004-08-26 |
+| 192211640 | Mani   | M      | 2004-03-21 |
+| 192211642 | Tharun | M      | 2004-04-22 |
+| 192211222 | anu    | F      | 2004-06-19 |
++-----------+--------+--------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select*from student order by dob;
++-----------+--------+--------+------------+
+| regno     | name   | gender | dob        |
++-----------+--------+--------+------------+
+| 191912206 | arun   | M      | 2000-04-23 |
+| 192211640 | Mani   | M      | 2004-03-21 |
+| 192211642 | Tharun | M      | 2004-04-22 |
+| 192211222 | anu    | F      | 2004-06-19 |
+| 192211495 | bhanu  | M      | 2004-08-26 |
+| 192211495 | Bhanu  | M      | 2004-08-26 |
++-----------+--------+--------+------------+
+6 rows in set (0.00 sec)
+
+4 mysql> use course;
+Database changed
+
+mysql> create table course5(studid int(10),courseno int(10),coursename varchar(10),marks int(10),assignment int(10),assinmarks int(10));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into course5 values(1,4795,'maths',65,2,45);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course5 values(2,4065,'c',75,4,65);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into course5 values(3,4565,'java',55,6,54);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course5 values(2,4532,'physics',95,3,62);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into course5 values(1,4532,'physics',79,1,72);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into course5 values(1,4065,'c',89,5,82);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select*from course5;
++--------+----------+------------+-------+------------+------------+
+| studid | courseno | coursename | marks | assignment | assinmarks |
++--------+----------+------------+-------+------------+------------+
+|      1 |     4795 | maths      |    65 |          2 |         45 |
+|      2 |     4065 | c          |    75 |          4 |         65 |
+|      3 |     4565 | java       |    55 |          6 |         54 |
+|      2 |     4532 | physics    |    95 |          3 |         62 |
+|      1 |     4532 | physics    |    79 |          1 |         72 |
+|      1 |     4065 | c          |    89 |          5 |         82 |
++--------+----------+------------+-------+------------+------------+
+6 rows in set (0.00 sec)
+
+mysql> select coursename,assinmarks from course5;
++------------+------------+
+| coursename | assinmarks |
++------------+------------+
+| maths      |         45 |
+| c          |         65 |
+| java       |         54 |
+| physics    |         62 |
+| physics    |         72 |
+| c          |         82 |
++------------+------------+
+6 rows in set (0.00 sec)
