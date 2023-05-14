@@ -1,0 +1,45 @@
+mysql> use student1;
+Database changed
+mysql> select *from student;
++-----------+--------+--------+------------+
+| regno     | name   | gender | dob        |
++-----------+--------+--------+------------+
+| 192211495 | bhanu  | M      | 2004-08-26 |
+| 191912206 | arun   | M      | 2000-04-23 |
+| 192211495 | Bhanu  | M      | 2004-08-26 |
+| 192211640 | Mani   | M      | 2004-03-21 |
+| 192211642 | Tharun | M      | 2004-04-22 |
+| 192211222 | anu    | F      | 2004-06-19 |
++-----------+--------+--------+------------+
+6 rows in set (0.00 sec)
+
+
+mysql> create view stuview as select regno, name and dob from student1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from stuview;
++---------+--------------+
+| regno   | name and dob |
++---------+--------------+
+| 1123456 |            0 |
+|   34567 |            0 |
+|   45678 |            0 |
++---------+--------------+
+3 rows in set, 3 warnings (0.03 sec)
+
+mysql> create index regno on student(regno);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from student;
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table   | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| student |          1 | regno    |            1 | regno       | A         |           6 |     NULL | NULL   | YES  | BTREE      |         |               |
++---------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+1 row in set (0.05 sec)
+
+mysql>
+
+
+
